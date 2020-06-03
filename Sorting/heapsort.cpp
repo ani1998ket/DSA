@@ -12,21 +12,21 @@ inline int parent( int i ) {  return ( ( i - 1) / 2 ); }
 inline int left  ( int i ) {  return ( i * 2  + 1 ); }
 inline int right ( int i ) {  return ( i * 2  + 2 ); }
 
-void max_heapify( vector<int>&, int, int); 
+void max_heapify( vector<int>& arr, int index, int heap_size); 
 void build_max_heap( vector<int>& arr );
 void heap_sort( vector<int>& arr );
 
 void max_heapify( vector<int>& arr, int i, int heap_size ){
-    int l = left ( i );
-    int r = right( i );
+    int left_index = left ( i );
+    int right_index = right( i );
     int largest = i;
     
     // Swap the largest among the node and immediate children in case of a invalid node
-    if( l < heap_size && arr[l] > arr[i] ){
-        largest = l;
+    if( left_index < heap_size && arr[left_index] > arr[i] ){
+        largest = left_index;
     }
-    if( r < heap_size && arr[r] > arr[ largest ] ){
-        largest = r;
+    if( right_index < heap_size && arr[right_index] > arr[ largest ] ){
+        largest = right_index;
     }
 
     if( largest != i ){
@@ -47,7 +47,7 @@ void heap_sort( vector<int>& arr ){
     build_max_heap( arr );
     int heap_size = arr.size();
     //Place the max element at the back and heapify the remaining
-    for( int i = 0; i < arr.size(); i++ ){
+    for( const auto& i : arr ){
         swap( arr[0], arr[ heap_size - 1] );
         heap_size--;
         max_heapify( arr, 0, heap_size );
